@@ -98,6 +98,7 @@ jobs:
       - name: Run OWASP ZAP Full Scan
         run: |
           docker pull zaproxy/zap-stable
+          
           # Create a custom configuration file for ZAP
           cat > zap.conf << EOL
           # Only fail on critical issues
@@ -111,6 +112,6 @@ jobs:
           docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py \
             -t http://${{ secrets.SERVER_HOST }}/ \
             -a \
-            -z zap.conf \
-            --hook=/zap/wrk/zap.conf \
-            --fail-ok
+            -c zap.conf \
+            -I \
+            -l WARN
