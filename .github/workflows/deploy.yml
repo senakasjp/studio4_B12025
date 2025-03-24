@@ -69,14 +69,25 @@ jobs:
           sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "rm -rf /var/www/html/*"
           sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no -r build/* $SERVER_USER@$SERVER_HOST:/var/www/html/
 
-  zap-scan:
+    zap-scan:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install Docker
-        run: sudo apt-get update && sudo apt-get install -y docker.io
-
-      - name: Run OWASP ZAP Full Scan
+        - name: Debug Environment
         run: |
-          docker pull owasp/zap2docker-stable
-          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/
+            echo "Operating System: $(uname -a)"
+            echo "Runner Version: $RUNNER_VERSION"
+
+        # Install Docker using the official script to avoid dependency issues
+        - name: Install Docker
+        run: |
+            curl -fsSL https://get.docker.com -o get-docker.sh
+            sudo sh get-docker.sh
+            docker --version
+
+        # Run OWASP ZAP Full Scan using the correct image
+        - name: Run OWASP ZAP Full Scan
+        run: |
+            docker pull owasp/zap2docker
+            docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/
+
