@@ -73,8 +73,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Start OWASP ZAP
-        uses: zaproxy/action-full-scan@v1
-        with:
-          target: 'http://${{ secrets.SERVER_HOST }}/' # Replace with your deployed app URL
-          args: '-d' # Enable debug mode for ZAP
+      - name: Run OWASP ZAP Full Scan
+        run: |
+          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/
