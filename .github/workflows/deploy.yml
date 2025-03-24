@@ -88,5 +88,5 @@ jobs:
       # Run OWASP ZAP Full Scan using the correct image
       - name: Run OWASP ZAP Full Scan
         run: |
-          docker pull owasp/zap2docker
-          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/
+          docker pull zaproxy/zap-stable
+          docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/
