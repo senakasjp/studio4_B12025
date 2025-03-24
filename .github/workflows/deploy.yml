@@ -3,7 +3,7 @@ name: Deploy React App
 on:
   push:
     branches:
-      - main  # Change this if using a different branch
+      - main  # Change if using a different branch
 
 jobs:
   build-and-deploy:
@@ -16,16 +16,18 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18 # Change if needed
+          node-version: 18  # Ensure compatibility with your dependencies
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Clean Install Dependencies
+        run: npm ci  # Replaces npm install for a consistent environment
 
-      - name: Install Dependencies
-        run: npm ci
+      - name: Install Webpack Polyfills (if needed)
+        run: npm install node-polyfill-webpack-plugin --save-dev
 
       - name: Build React App
         run: npm run build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider  # Fixes potential OpenSSL issues in some Node.js versions
 
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
