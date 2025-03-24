@@ -27,15 +27,17 @@ jobs:
         run: npm ci  # Ensures a clean install
 
       - name: Install Webpack Polyfills
-        run: npm install node-polyfill-webpack-plugin net-browserify --save-dev
+        run: npm install node-polyfill-webpack-plugin net-browserify stream-http --save-dev
 
       - name: Inject Webpack Polyfill Overrides
         run: |
           echo "module.exports = function override(config) { 
-            config.resolve.fallback = { net: require.resolve('net-browserify') }; 
+            config.resolve.fallback = { 
+              net: require.resolve('net-browserify'), 
+              http: require.resolve('stream-http'), 
+            }; 
             return config; 
           };" > ./config-overrides.js
-        shell: bash
 
       - name: Install React App Rewired
         run: npm install react-app-rewired --save-dev
