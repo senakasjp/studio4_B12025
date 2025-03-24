@@ -43,7 +43,8 @@ jobs:
               zlib: require.resolve('browserify-zlib'), 
               vm: require.resolve('vm-browserify'), 
               async_hooks: false, 
-            }; 
+            };
+            config.ignoreWarnings = [/Critical dependency:/];  // Suppresses dynamic require warnings
             return config; 
           };" > ./config-overrides.js
 
@@ -54,6 +55,7 @@ jobs:
         run: npx react-app-rewired build
         env:
           NODE_OPTIONS: --openssl-legacy-provider  # Fixes potential OpenSSL issues in some Node.js versions
+          CI: false  # Prevents treating warnings as errors
 
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
