@@ -19,7 +19,10 @@ jobs:
           node-version: 18  # Ensure compatibility with your dependencies
 
       - name: Clean Install Dependencies
-        run: npm install  # Replaces npm install for a consistent environment
+        run: npm ci  # Ensures a clean install
+
+      - name: Install Webpack Polyfills
+        run: npm install node-polyfill-webpack-plugin stream-http https-browserify buffer util browserify-zlib --save-dev
 
       - name: Build React App
         run: npm run build

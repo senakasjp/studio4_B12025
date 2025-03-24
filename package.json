@@ -9,5 +9,13 @@
   "scripts": {
     "start": "node app.js",
     "build": "react-scripts build"
+  },
+  "devDependencies": {
+    "browserify-zlib": "^0.2.0",
+    "buffer": "^6.0.3",
+    "https-browserify": "^1.0.0",
+    "node-polyfill-webpack-plugin": "^4.1.0",
+    "stream-http": "^3.2.0",
+    "util": "^0.12.5"
   }
 }
