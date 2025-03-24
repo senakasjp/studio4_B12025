@@ -21,9 +21,6 @@ jobs:
       - name: Clean Install Dependencies
         run: npm install  # Replaces npm install for a consistent environment
 
-      - name: Install Webpack Polyfills (if needed)
-        run: npm install node-polyfill-webpack-plugin --save-dev
-
       - name: Build React App
         run: npm run build
         env:
