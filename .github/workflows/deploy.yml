@@ -27,7 +27,7 @@ jobs:
         run: npm ci  # Ensures a clean install
 
       - name: Install Webpack Polyfills
-        run: npm install node-polyfill-webpack-plugin net-browserify stream-http path-browserify --save-dev
+        run: npm install node-polyfill-webpack-plugin net-browserify stream-http path-browserify querystring-es3 --save-dev
 
       - name: Inject Webpack Polyfill Overrides
         run: |
@@ -36,6 +36,7 @@ jobs:
               net: require.resolve('net-browserify'), 
               http: require.resolve('stream-http'), 
               path: require.resolve('path-browserify'), 
+              querystring: require.resolve('querystring-es3'), 
             }; 
             return config; 
           };" > ./config-overrides.js
