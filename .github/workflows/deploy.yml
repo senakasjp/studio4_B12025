@@ -68,3 +68,13 @@ jobs:
         run: |
           sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_HOST "rm -rf /var/www/html/*"
           sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no -r build/* $SERVER_USER@$SERVER_HOST:/var/www/html/
+
+    zap-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Start OWASP ZAP
+        uses: zaproxy/action-full-scan@v1
+        with:
+            target: 'http://${{ secrets.SERVER_HOST }}/' # Replace with your deployed app URL
+            args: '-d' # Enable debug mode for ZAP
