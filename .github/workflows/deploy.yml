@@ -98,4 +98,4 @@ jobs:
       - name: Run OWASP ZAP Full Scan
         run: |
           docker pull zaproxy/zap-stable
-          docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/ -a
+          docker run -v $(pwd):/zap/wrk/:rw -t zaproxy/zap-stable zap-full-scan.py -t http://${{ secrets.SERVER_HOST }}/ -a -I
