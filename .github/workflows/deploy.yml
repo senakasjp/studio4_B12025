@@ -19,7 +19,7 @@ jobs:
           node-version: 18  # Ensure compatibility with your dependencies
 
       - name: Clean Install Dependencies
-        run: npm ci  # Replaces npm install for a consistent environment
+        run: npm install  # Replaces npm install for a consistent environment
 
       - name: Install Webpack Polyfills (if needed)
         run: npm install node-polyfill-webpack-plugin --save-dev
