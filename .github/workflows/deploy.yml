@@ -22,7 +22,7 @@ jobs:
         run: npm install  # Ensures a clean install
 
       - name: Install Webpack Polyfills
-        run: npm install node-polyfill-webpack-plugin stream-http https-browserify buffer util browserify-zlib --save-dev
+        run: npm install node-polyfill-webpack-plugin stream-http https-browserify buffer util browserify-zlib net-browserify tls-browserify --save-dev
 
       - name: Build React App
         run: npm run build
